@@ -3,13 +3,11 @@
 {% block content %}
 <ul>
 {% for blog in blogs %}
+<li>
+<h2><a href="/blog/{{ blog.key().id() }}">{{ blog.title }}</a></h2>
 
-    <li>
-      <strong>{{ blog.title }}</strong>
-    </li>
-    <li>
       <p>{{ blog.body }}</p>
-    </li>
+
 <form action="/blog" method="post">
     <input type="hidden" name="blog_id" value="{{ blog.key().id() }}"/>
     <input type="submit" value="View"/>
@@ -19,6 +17,7 @@
     <input type="submit" value="Delete"/>
 </form>
 <br><br>
+</li>
 {% endfor %}
 </ul>
 {% endblock %}

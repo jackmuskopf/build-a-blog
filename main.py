@@ -38,6 +38,16 @@ class Index(Handler):
         content = t.render()
         self.response.write(content)
 
+class ViewPost(Handler):
+
+    """ View a single post """
+    def get(self,id):
+        blog = Blog.get_by_id(int(id))
+        t = jinja_env.get_template("blog.html")
+        content=t.render(blog=blog)
+        self.response.write(content)
+
+
 class BlogList(Handler):
     """ Handles requests coming in to '/add'
         e.g. www.flicklist.com/add
@@ -110,6 +120,7 @@ class NewPost(Handler):
 app = webapp2.WSGIApplication([
     ('/', Index),
     ('/blog', BlogList),
+    webapp2.Route('/blog/<id:\d+>', ViewPost),
     ('/newpost', NewPost),
     ('/delete', Delete)
 ], debug=True)
